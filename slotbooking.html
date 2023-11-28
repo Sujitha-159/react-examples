@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Monthly Slot Booking</title>
+    <style>
+        /* Add your CSS styles here */
+        .slot {
+            border: 1px solid #ccc;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .slot.booked {
+            background-color: #f2f2f2;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <h1>Monthly Slot Booking</h1>
+    <div id="calendar">
+        <!-- Calendar with slots will be displayed here -->
+    </div>
+    <div class="booking-form">
+        <h2>Book a Slot</h2>
+        <label for="name">Name:</label>
+        <input type="text" id="name">
+        <button id="bookButton">Book</button>
+    </div>
+
+    <script>
+        // Sample data for available slots
+        const availableSlots = Array(30).fill("Available"); // Assuming a 30-day month
+
+        // Function to display the calendar with available slots
+        function displayCalendar() {
+            const calendarContainer = document.getElementById('calendar');
+            calendarContainer.innerHTML = '';
+
+            availableSlots.forEach((slot, index) => {
+                const slotElement = document.createElement('div');
+                slotElement.textContent = `Day ${index + 1}: ${slot}`;
+                slotElement.classList.add('slot');
+                slotElement.dataset.index = index; // Store the slot index as a data attribute
+                calendarContainer.appendChild(slotElement);
+            });
+        }
+
+        // Function to book a slot
+        function bookSlot(event) {
+            const slotIndex = event.target.dataset.index;
+            if (slotIndex !== undefined) {
+                const name = document.getElementById('name').value;
+                if (name) {
+                    if (availableSlots[slotIndex] === "Available") {
+                        availableSlots[slotIndex] = name;
+                        event.target.classList.add('booked');
+                        event.target.textContent = `Day ${parseInt(slotIndex) + 1}: Booked by ${name}`;
+                        document.getElementById('name').value = '';
+                    } else {
+                        alert('Slot already booked.');
+                    }
+                } else {
+                    alert('Please enter your name to book a slot.');
+                }
+            }
+        }
+
+        // Initialize the calendar display
+        displayCalendar();
+
+        // Add event listener to the book button
+        const slots = document.querySelectorAll('.slot');
+        slots.forEach((slot) => {
+            slot.addEventListener('click', bookSlot);
+        });
+    </script>
+</body>
+</html>

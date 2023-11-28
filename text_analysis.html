@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Text Analysis</title>
+</head>
+<body>
+    <h1>WORDS,SENTENCES AND CHARACTERS COUNTER</h1>
+    <textarea id="textInput" rows="5" cols="50" placeholder="Enter your text here..."></textarea>
+    <button onclick="analyzeText()">Analyze</button>
+    <p id="wordCount">Word Count: 0</p>
+    <p id="charCount">Character Count: 0</p>
+    <p id="sentenceCount">Sentence Count: 0</p>
+
+    <script>
+        function analyzeText() {
+            const text = document.getElementById("textInput").value;
+
+            // Calculate word count by splitting text by spaces
+            const words = text.split(/\s+/);
+            const wordCount = words.length;
+
+            // Calculate character count
+            const charCount = text.length;
+
+            // Calculate sentence count by splitting text by sentence-ending punctuation
+            const sentences = text.split(/[.!?]+/).filter(Boolean);
+            const sentenceCount = sentences.length;
+
+            // Update the displayed counts
+            document.getElementById("wordCount").textContent = `Word Count: ${wordCount}`;
+            document.getElementById("charCount").textContent = `Character Count: ${charCount}`;
+            document.getElementById("sentenceCount").textContent = `Sentence Count: ${sentenceCount}`;
+        }
+    </script>
+</body>
+</html>

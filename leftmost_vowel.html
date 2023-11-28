@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Leftmost Vowel Finder</title>
+</head>
+<body>
+    <h1>Leftmost Vowel Finder</h1>
+    <p>Enter a string to find the position of the leftmost vowel:</p>
+    <input type="text" id="inputString" placeholder="Enter your string here...">
+    <button onclick="findLeftmostVowelPosition()">Find</button>
+    <p id="result"></p>
+
+    <script>
+        function findLeftmostVowelPosition() {
+            const inputString = document.getElementById("inputString").value.toLowerCase();
+            const vowels = "aeiou";
+            let position = -1;
+
+            for (let i = 0; i < inputString.length; i++) {
+                if (vowels.includes(inputString[i])) {
+                    position = i;
+                    break;
+                }
+            }
+
+            if (position !== -1) {
+                document.getElementById("result").textContent = `The leftmost vowel is at position ${position + 1}.`;
+            } else {
+                document.getElementById("result").textContent = "No vowels found in the string.";
+            }
+        }
+    </script>
+</body>
+</html>
